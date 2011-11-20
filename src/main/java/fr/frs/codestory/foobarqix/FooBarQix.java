@@ -4,6 +4,9 @@ import java.util.Map;
 import java.util.NavigableMap;
 import java.util.TreeMap;
 
+/**
+ * Solution to the FooBarQix problem.
+ */
 public class FooBarQix {
 
     // NavigableMap keeps the order of appearance
@@ -14,44 +17,36 @@ public class FooBarQix {
     }};
 
     public static String toFooBarQix(int n) {
-        String result = getFoobarqixFromDivisions(n);
-
-        final String stringOfN = String.valueOf(n);
-
-        result += getFoobarqixFromDigits(stringOfN);
+        String result = getFoobarqixFromDivisibilities(n);
+        result += getFoobarqixFromDigits(n);
 
         if (result.isEmpty()) {
-            result = stringOfN;
+            result = String.valueOf(n);
         }
         return result;
     }
 
-    private static String getFoobarqixFromDigits(String stringOfN) {
-        String result = "";
+    private static String getFoobarqixFromDigits(int n) {
+        String stringOfN = String.valueOf(n);
+        StringBuilder result = new StringBuilder();
 
         for (char c : stringOfN.toCharArray()) {
             int digit = Character.digit(c, 10);
             if (FILTERS.containsKey(digit)) {
-                result += FILTERS.get(digit);
+                result.append(FILTERS.get(digit));
             }
         }
-        return result;
+        return result.toString();
     }
 
-    private static String getFoobarqixFromDivisions(int n) {
-        String result = "";
+    private static String getFoobarqixFromDivisibilities(int n) {
+        StringBuilder result = new StringBuilder();
         for (Map.Entry<Integer, String> filter : FILTERS.entrySet()) {
             if (n % filter.getKey() == 0) {
-                result += filter.getValue();
+                result.append(filter.getValue());
             }
         }
-        return result;
+        return result.toString();
     }
 
-
-    public static void main(String[] args) {
-        for (int n = 1; n <= 100; n++) {
-            System.out.println(toFooBarQix(n));
-        }
-    }
 }

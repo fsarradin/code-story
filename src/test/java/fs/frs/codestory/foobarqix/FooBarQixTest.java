@@ -27,6 +27,7 @@ public class FooBarQixTest {
         assertThat(FooBarQix.toFooBarQix(10)).isEqualTo("Bar");
     }
 
+    // outside scope
     @Test
     public void should_return_FooBarQix_when_210() {
         assertThat(FooBarQix.toFooBarQix(210)).isEqualTo("FooBarQix");
@@ -47,6 +48,7 @@ public class FooBarQixTest {
         assertThat(FooBarQix.toFooBarQix(33)).isEqualTo("FooFooFoo");
     }
 
+    // outside scope
     @Test
     public void should_return_FooBarQixBar_when_105() {
         assertThat(FooBarQix.toFooBarQix(105)).isEqualTo("FooBarQixBar");
