@@ -1,4 +1,4 @@
-package fr.frs.codestory.foobarqix;
+package fr.frs.codestory.exercise1;
 
 public class Main {
 

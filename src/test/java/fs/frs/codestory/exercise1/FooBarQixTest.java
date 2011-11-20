@@ -1,6 +1,6 @@
-package fs.frs.codestory.foobarqix;
+package fs.frs.codestory.exercise1;
 
-import fr.frs.codestory.foobarqix.FooBarQix;
+import fr.frs.codestory.exercise1.FooBarQix;
 import org.junit.Test;
 
 import static org.fest.assertions.Assertions.assertThat;

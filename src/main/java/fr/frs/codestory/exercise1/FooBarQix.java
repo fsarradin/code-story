@@ -1,4 +1,4 @@
-package fr.frs.codestory.foobarqix;
+package fr.frs.codestory.exercise1;
 
 import java.util.Map;
 import java.util.NavigableMap;
