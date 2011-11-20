@@ -9,49 +9,49 @@ public class FooBarQixTest {
 
     @Test
     public void should_return_1_when_1() {
-        assertThat(FooBarQix.toFooBarQix(1)).isEqualTo("1");
+        assertThat(FooBarQix.TO_FOO_BAR_QIX.apply(1)).isEqualTo("1");
     }
 
     @Test
     public void should_return_2_when_2() {
-        assertThat(FooBarQix.toFooBarQix(2)).isEqualTo("2");
+        assertThat(FooBarQix.TO_FOO_BAR_QIX.apply(2)).isEqualTo("2");
     }
 
     @Test
     public void should_return_Foo_when_6() {
-        assertThat(FooBarQix.toFooBarQix(6)).isEqualTo("Foo");
+        assertThat(FooBarQix.TO_FOO_BAR_QIX.apply(6)).isEqualTo("Foo");
     }
 
     @Test
     public void should_return_Bar_when_10() {
-        assertThat(FooBarQix.toFooBarQix(10)).isEqualTo("Bar");
+        assertThat(FooBarQix.TO_FOO_BAR_QIX.apply(10)).isEqualTo("Bar");
     }
 
     // outside scope
     @Test
     public void should_return_FooBarQix_when_210() {
-        assertThat(FooBarQix.toFooBarQix(210)).isEqualTo("FooBarQix");
+        assertThat(FooBarQix.TO_FOO_BAR_QIX.apply(210)).isEqualTo("FooBarQix");
     }
 
     @Test
     public void should_return_Foo_when_13() {
-        assertThat(FooBarQix.toFooBarQix(13)).isEqualTo("Foo");
+        assertThat(FooBarQix.TO_FOO_BAR_QIX.apply(13)).isEqualTo("Foo");
     }
 
     @Test
     public void should_return_FooBarBar_when_15() {
-        assertThat(FooBarQix.toFooBarQix(15)).isEqualTo("FooBarBar");
+        assertThat(FooBarQix.TO_FOO_BAR_QIX.apply(15)).isEqualTo("FooBarBar");
     }
 
     @Test
     public void should_return_FooBarBar_when_33() {
-        assertThat(FooBarQix.toFooBarQix(33)).isEqualTo("FooFooFoo");
+        assertThat(FooBarQix.TO_FOO_BAR_QIX.apply(33)).isEqualTo("FooFooFoo");
     }
 
     // outside scope
     @Test
     public void should_return_FooBarQixBar_when_105() {
-        assertThat(FooBarQix.toFooBarQix(105)).isEqualTo("FooBarQixBar");
+        assertThat(FooBarQix.TO_FOO_BAR_QIX.apply(105)).isEqualTo("FooBarQixBar");
     }
 
 }
