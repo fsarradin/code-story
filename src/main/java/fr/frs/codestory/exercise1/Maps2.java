@@ -7,12 +7,13 @@ import java.util.Map;
 public class Maps2 {
 
     /**
+     * Return a value from its key if it exists.
      *
      * @param map
      * @param key
      * @param <K>
      * @param <V>
-     * @return
+     * @return a value or nothing
      */
     public static <K, V> Optional<V> getFrom(Map<K, V> map, K key) {
         if (!map.containsKey(key)) return Optional.absent();

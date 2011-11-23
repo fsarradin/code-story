@@ -24,10 +24,10 @@ public class Iterables2 {
         };
     }
 
-    public static <T> Optional<T> join(Iterable<Optional<T>> iterable, Function<Optional<T>, Function<Optional<T>, Optional<T>>> joiner) {
+    public static <T> Optional<T> reduce(Iterable<Optional<T>> iterable, Function<Optional<T>, Function<Optional<T>, Optional<T>>> reducer) {
         Optional<T> result = Optional.absent();
         for (Optional<T> value : iterable) {
-            result = joiner.apply(result).apply(value);
+            result = reducer.apply(result).apply(value);
         }
         return result;
     }

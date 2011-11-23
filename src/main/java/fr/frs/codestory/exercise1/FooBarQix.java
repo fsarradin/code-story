@@ -9,11 +9,21 @@ import java.util.TreeMap;
 import static com.google.common.collect.Iterables.concat;
 import static com.google.common.collect.Iterables.transform;
 import static com.google.common.collect.Lists.charactersOf;
-import static fr.frs.codestory.exercise1.Iterables2.join;
+import static fr.frs.codestory.exercise1.Iterables2.reduce;
 import static fr.frs.codestory.exercise1.Maps2.getFrom;
 
 /**
  * Solution to the FooBarQix problem.
+ *
+ * <p>
+ * This solution intensively used the functional approach. First, it is based on the type {@link Optional} provided by
+ * Guava. The Optional type has two possible subtypes that represent a value or nothing. In a sense, this a
+ * generalization of the pattern Null Interface.
+ * </p>
+ * <p>
+ * Second, the solution is essentially based on the type {@link Function} defined by Guava. Most of the code is made of
+ * Function instances calling each others.
+ * </p>
  */
 public class FooBarQix {
 
@@ -24,12 +34,14 @@ public class FooBarQix {
         put(7, "Qix");
     }};
 
+    // ---- INTERNAL FUNCTIONS ----
+
     /**
      * Curryfied function that returns Foo, Bar, or Qix according to the divisibility of two numbers.
      *
      * @param divisor
      * @param value
-     * @return a string if value is divisible by divisor or nothing
+     * @return a string if value is divisible by divisor, or nothing
      *
      * @type Integer -> Integer -> Optional String
      */
@@ -53,9 +65,10 @@ public class FooBarQix {
     private static final Iterable<Function<Integer, Optional<String>>> FOOBARQIX_FROM_DIVISIBILITIES = transform(FILTERS.navigableKeySet(), FOOBARQIX_FROM_DIVISIBILITY);
 
     /**
+     * Return a function that waits for another function to apply the given value on.
      *
-     * @param value
-     * @return
+     * @param value value to apply
+     * @return a function that waits for another function to apply the given value on
      * @type Integer -> (Integer -> Optional String) -> Optional String
      */
     private static Function<Function<Integer, Optional<String>>, Optional<String>> appliedTo(Integer value) {
@@ -65,9 +78,12 @@ public class FooBarQix {
     /**
      * Join strings that are not nothing.
      *
+     * @param string1
+     * @param string2
+     * @return a string or nothing
      * @type Optional String -> Optional String -> Optional String
      */
-    public static final Function<Optional<String>, Function<Optional<String>, Optional<String>>> OPTIONAL_STRING_JOINER = new Function<Optional<String>, Function<Optional<String>, Optional<String>>>() {
+    public static final Function<Optional<String>, Function<Optional<String>, Optional<String>>> OPTIONAL_STRING_REDUCER = new Function<Optional<String>, Function<Optional<String>, Optional<String>>>() {
         public Function<Optional<String>, Optional<String>> apply(final Optional<String> string1) {
             return new Function<Optional<String>, Optional<String>>() {
                 public Optional<String> apply(Optional<String> string2) {
@@ -82,6 +98,8 @@ public class FooBarQix {
     /**
      * Convert a digit into Foo, Bar, Qix, or nothing.
      *
+     * @param digit
+     * @return
      * @type Character -> Optional String
      */
     private static final Function<Character, Optional<String>> FOOBARQIX_FROM_DIGIT = new Function<Character, Optional<String>>() {
@@ -91,15 +109,29 @@ public class FooBarQix {
         }
     };
 
+    // ---- MAIN FUNCTION ----
+
     /**
+     * Returns a string that contains occurrences of Foo, Bar, and Qix when it is possible.
+     *
+     * @param value
+     * @return
      * @type Integer -> String
      */
     public static final Function<Integer, String> TO_FOO_BAR_QIX = new Function<Integer, String>() {
         public String apply(Integer value) {
             final String stringOfValue = String.valueOf(value);
+
+            // Rule 1: get Foo, Bar, Qix according to divisibility of the value
             Iterable<Optional<String>> rule1Results = transform(FOOBARQIX_FROM_DIVISIBILITIES, appliedTo(value));
+
+            // Rule 2: get Foo, Bar, Qix according to the digits of the value
             Iterable<Optional<String>> rule2Results = transform(charactersOf(stringOfValue), FOOBARQIX_FROM_DIGIT);
-            Optional<String> result = join(concat(rule1Results, rule2Results), OPTIONAL_STRING_JOINER);
+
+            // concat above results while extracting empty results
+            Optional<String> result = reduce(concat(rule1Results, rule2Results), OPTIONAL_STRING_REDUCER);
+
+            // return the above result is it exists or the initial value else
             return result.or(stringOfValue);
         }
     };
