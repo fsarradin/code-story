@@ -15,4 +15,8 @@ the interface Function provided by Guava, strongly inspired by the
 functional paradigm. You can see the result in the branch `fp-appraoch`
 (https://github.com/fsarradin/code-story/tree/fp-approach).
 
-Will I stop here or continue? Only the Earth and the Sky know...
+But I would like to go further. So, I have created another a new branch and
+decided to develop a solution using Java 8's lambda expression. Here is the
+result: `java8` (https://github.com/fsarradin/code-story/tree/java8).
+
+Will I stop here or continue? No, I stop here!
